@@ -4,7 +4,7 @@ import { conn,PORT } from "./src/db.js";
 //*Syncing all the models at once.
 const startServer = async () => {
   try {
-    await conn.sync({ force: true });
+    await conn.sync({ force: false });
     server.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });

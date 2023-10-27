@@ -1,6 +1,5 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-// import { urlencoded, json } from 'body-parser';
 import bodyParser from "body-parser";
 const { urlencoded, json } = bodyParser;
 
@@ -11,7 +10,6 @@ import './db.js';
 
 const server = express();
 
-// server.name = 'API';
 server.set("name", "API");
 
 

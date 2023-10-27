@@ -1,13 +1,18 @@
 import { DataTypes } from "sequelize";
 
 export default (sequelize) => {
-  sequelize.define("Genre", {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false,
+  sequelize.define(
+    "Genre",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      name: { type: DataTypes.STRING, allowNull: false },
     },
-    name: { type: DataTypes.STRING, allowNull: false },
-  },{timestamps:false});
+    { timestamps: false }
+  );
 };

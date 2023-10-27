@@ -4,6 +4,7 @@ export default (sequelize) => {
   sequelize.define("Videogame", {
     id: {
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
@@ -28,10 +29,9 @@ export default (sequelize) => {
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
-    raiting: {
-      type: DataTypes.INTEGER,
+    rating: {
+      type: DataTypes.DECIMAL(4,2),
       allowNull: false,
     },
   },{timestamps:false});
-  // return "the model was created"
 };

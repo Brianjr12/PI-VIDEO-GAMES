@@ -14,6 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const basename = _basename(__filename);
 
+// We read all the files from the Models folder, request them and add them to the modelDefiners array 
 const createTables = async () => {
   try {
     const modelDefiners = await Promise.all(
@@ -35,13 +36,22 @@ const createTables = async () => {
   }
 };
 
+// injecting the connection (sequelize) to all models
 const models = await createTables();
-models.forEach((model) => {
-  model(sequelize);
-  console.log("the model was created");
-});
+models.forEach((model) => model(sequelize));
 
-// const { Videogame } = sequelize.models;
+
+// we capitalize the name of the models
+const entries = Object.entries(sequelize.models);
+const capsEntries = entries.map(([key, value]) => [
+  key[0].toUpperCase() + key.slice(1),
+  value,
+]);
+sequelize.models = Object.fromEntries(capsEntries);
+
+// We destructure the models to access them more easily
+const { Videogame, Genre } = sequelize.models;
+console.log();
 
 export default {
   ...sequelize.models,

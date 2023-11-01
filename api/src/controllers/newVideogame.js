@@ -2,7 +2,7 @@ import models from '../db.js'
 export const createVideoGame = async (req, res) => {
   try {
     const { Videogame } = models;
-    const { name, description, platforms, image, released, rating } = req.body;
+    const { name, description, platforms, image, released, rating,genres } = req.body;
     const newVideoGame = await Videogame.create({
       name,
       description,
@@ -11,8 +11,11 @@ export const createVideoGame = async (req, res) => {
       released,
       rating,
     });
-    res.status(200).send("video game recived");
+
+    if (genres && genres.length > 0) {
+      await newVideoGame.addGenres(genres);
+    }
+    res.status(201).json({ message: "successfully created video game" });
   } catch (error) {
-    console.log(error);
-  }
+    res.status(400).json({error:error.message})}
 };

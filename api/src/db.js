@@ -51,7 +51,27 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // We destructure the models to access them more easily
 const { Videogame, Genre } = sequelize.models;
-console.log();
+
+// creating relationships for models
+Videogame.belongsToMany(
+  Genre,
+  { through: "VideoGameGenres" },
+  {
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false
+  }
+);
+Genre.belongsToMany(
+  Videogame,
+  { through: "VideoGameGenres" },
+  {
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false,
+  }
+);
+
 
 export default {
   ...sequelize.models,

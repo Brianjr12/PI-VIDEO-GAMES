@@ -6,9 +6,8 @@ export default (sequelize) => {
     {
       id: {
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
         allowNull: false,
       },
       name: { type: DataTypes.STRING, allowNull: false },

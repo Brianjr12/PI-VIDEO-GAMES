@@ -55,21 +55,11 @@ const { Videogame, Genre } = sequelize.models;
 // creating relationships for models
 Videogame.belongsToMany(
   Genre,
-  { through: "VideoGameGenres" },
-  {
-    timestamps: false,
-    createdAt: false,
-    updatedAt: false
-  }
+  { through: "VideoGameGenres",timestamps:false },
 );
 Genre.belongsToMany(
   Videogame,
-  { through: "VideoGameGenres" },
-  {
-    timestamps: false,
-    createdAt: false,
-    updatedAt: false,
-  }
+  { through: "VideoGameGenres", timestamps:false },
 );
 
 

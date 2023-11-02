@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from "body-parser";
+import cors from 'cors'
 const { urlencoded, json } = bodyParser;
 
 import morgan from 'morgan';
@@ -24,6 +25,8 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+
+server.use(cors());
 
 server.use('/api', routes);
 

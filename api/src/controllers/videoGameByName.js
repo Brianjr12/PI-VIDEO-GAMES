@@ -59,8 +59,7 @@ export const videoGamesByName = async (req, res) => {
     // send 15 video games from database if the API is empty
     if (videoGamesApi.length === 0) {
       if (videoGamesDb) {
-        const videoGamesDbLimit = videoGamesDb.slice(0, 15);
-        return res.status(200).json(videoGamesDbLimit);
+        return res.status(200).json(videoGamesDb);
       }
       return res.status(404).json({ message: "Video game not found" });
     }

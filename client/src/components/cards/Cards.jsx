@@ -1,14 +1,12 @@
 import Card from "../card/Card";
-
-const Cards = ({games}) => {
+import style from'./Cards.module.css'
+const Cards = ({ games }) => {
   return (
-    <div>
-    {games.map(({ id, name, image }) => {
+    <div className={style.container}>
+    {games?.map(({ id, name, image,}) => {
       return (
-        <div key={id} >
-          <Card id={id} name={name} image={image} />
-        </div>
-        );
+          <Card key={id} name={name} image={image}/>
+      );
       })}
     </div>
   )

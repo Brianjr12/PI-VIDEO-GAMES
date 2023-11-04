@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: gray;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: transform 0.25s ease-out;
+    height: 155px;
+    width: 155px;
+    margin-left: 35px;
+    margin-bottom: 10px;
+}
+
+.container:hover{
+    transform: scale(1.05);
+}
+
+.container img{
+    width: 150px;
+    border-radius: 15px;
+    margin: 0 auto;
+}
+
+.card-name {
+    font-size: 10px;
+}

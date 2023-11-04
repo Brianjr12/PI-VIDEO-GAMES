@@ -11,16 +11,31 @@ export const videoGamesByName = async (req, res) => {
     // search the video games in the database
     const videoGamesFromDB = async () => {
       try {
-        const { Videogame } = models;
+        const { Videogame,Genre } = models;
         const videoGamesDb = await Videogame.findAll({
           where: {
             name: {
               [Op.iLike]: `%${name}%`,
             },
+            
           },
+          include: [{
+              model: Genre,
+              attributes:["id","name"]
+            }],
           limit: 15,
         });
-        return videoGamesDb;
+        const filterVideoGameDb = videoGamesDb.map(({ id, name, description, image, rating, released, Genres, platforms }) => ({
+          id,
+          name,
+          description,
+          image,
+          released,
+          rating,
+          genres: Genres.map(({name}) => name),
+          platforms
+        }))
+        return filterVideoGameDb;
       } catch (error) {
         throw new Error(error.message);
       }
@@ -37,7 +52,7 @@ export const videoGamesByName = async (req, res) => {
           image:background_image,
           released,
           rating,
-          genres: genres.map(({id,name}) => ({id,name})),
+          genres: genres.map(({name}) => name),
           platforms: platforms.map(({ platform }) => platform.name)
         }));
         return videoGameApi;

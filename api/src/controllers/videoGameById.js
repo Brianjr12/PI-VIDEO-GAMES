@@ -23,7 +23,7 @@ export const videoGamesById = async (req, res) => {
         };
         return videoGameApi;
       } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(404).json({ message: "Video Game not found" });
       }
     };
 
@@ -53,7 +53,7 @@ export const videoGamesById = async (req, res) => {
 
         return filterVideoGameDb;
       } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(404).json({ message: "Video Game not found" });
       }
     };
 

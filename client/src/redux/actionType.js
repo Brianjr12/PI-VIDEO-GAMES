@@ -1,3 +1,11 @@
 export const SAVE_GAMES = "SAVE_GAMES";
+export const SAVE_GENRES = "SAVE_GENRES";
 export const CHANGE_PAGE = "CHANGE_PAGE";
-export const GAME_BY_NAME = "GAME_BY_NAME";
+export const GAMES_BY_NAME = "GAMES_BY_NAME";
+export const GAME_BY_ID = "GAME_BY_ID";
+export const FILTER_ORIGIN_BY_DB = "FILTER_ORIGIN_BY_DB";
+export const FILTER_ORIGIN_BY_API = "FILTER_ORIGIN_BY_API";
+export const FILTER_BY_GENRES = "FILTER_BY_GENRES";
+export const SORT_ASCENDING = "SORT_ASCENDING";
+export const SORT_DESCENDING = "SORT_DESCENDING";
+export const SORT_BY_RATING = "SORT_ABY_RATING";

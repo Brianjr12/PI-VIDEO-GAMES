@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import {NavLink} from 'react-router-dom'
+import './SearchBar.css'
 import {searchGamesByName} from '../../redux/actions.js'
 
 const SearchBar = () => {
@@ -13,12 +13,19 @@ const SearchBar = () => {
     setName("");
   }
   return (
-    <div>
-      <input type="text" onChange={handleChange} value={name} placeholder="Search..." />
-      {/* <NavLink to="/name"> */}
-      <button onClick={handleSearch} >Search</button>
-      {/* </NavLink> */}
+    <div className="searchbar-container">
+      <input
+        type="text"
+        onChange={handleChange}
+        value={name}
+        placeholder="Search..."
+        className="searchbar-input"
+      />
+
+      <button onClick={handleSearch} className="searchbar-button">
+        Search
+      </button>
     </div>
-  )
+  );
 }
 export default SearchBar

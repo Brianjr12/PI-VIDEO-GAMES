@@ -1,6 +1,12 @@
+import { useSelector } from "react-redux"
+import Card from '../components/card/Card'
+
 const DetailPage = () => {
+  const gameById = useSelector(({ gameById }) => gameById)
   return (
-    <div>DetailPage</div>
+    <div>
+      <Card gameById={gameById}/>
+    </div>
   )
 }
 

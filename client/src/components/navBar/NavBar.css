@@ -1,0 +1,55 @@
+.nav-container {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.nav-logout {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+.nav-logout:hover {
+  background-color: #c0392b;
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-link{
+  background-color: #15D0A6;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.nav-link:hover{
+text-decoration: none;
+color: #fff;
+background-color: #18A484;
+}

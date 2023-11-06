@@ -1,7 +1,11 @@
-
+import {Link} from 'react-router-dom'
 const LoginPage = () => {
   return (
-    <div>LoginPage</div>
+    <div className='container-login'>
+      <Link to="/home">
+      <button className='button-login' >Home</button>
+      </Link>
+    </div>
   )
 }
 

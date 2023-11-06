@@ -7,7 +7,6 @@ const { API_KEY } = process.env;
 export const allVideoGames = async (req, res) => {
   try {
     let page = req.query.page || 1; // Get the page number of the query, or use page 1 if not specified
-
     // search for video games in the database
     const videoGamesFromDB = async (startIndex, endIndex) => {
       try {
@@ -28,7 +27,7 @@ export const allVideoGames = async (req, res) => {
             image,
             released,
             rating,
-            genres: Genres.map(({ name }) => name),
+            genres: Genres.map(({id, name }) => ({id,name})),
             platforms,
           }))
           .slice(startIndex, endIndex);
@@ -65,34 +64,36 @@ export const allVideoGames = async (req, res) => {
     const sendVideoGames = async (page) => {
       try {
         const videoGamesDbs = await sendVideoGamesDB(page);
-        //fusionar juegos con juegos API si hay menos de 15 en la base de datos
-        if (videoGamesDbs.length > 0 && videoGamesDbs.length < 15) {
-          const allVideoGames = [...videoGamesDbs, ...videoGamesAPI].slice(
-            0,
-            15
-          );
-          return res.status(200).json(allVideoGames);
-        }
-        // send 10 video games to page 7
-        if (videoGamesDbs.length === 0) {
-          if (page === 7) {
-            return res.status(200).json(videoGamesAPI.slice(0, 10));
+        if (page <= 7) {
+          const videoGamesAPI = await videoGamesFromAPI(page);
+          //merge games with API games if less than 15 in database
+          if (videoGamesDbs.length > 0 && videoGamesDbs.length < 15) {
+            const allVideoGames = [...videoGamesDbs, ...videoGamesAPI].slice(
+              0,
+              15
+            );
+            return res
+              .status(200)
+              .json({ games: allVideoGames, limit: 100 + videoGamesDB.length });
           }
-          return res.status(200).json(videoGamesAPI);
+          if (videoGamesDbs.length === 0)
+            return res.status(200).json({ games: videoGamesAPI });
+
+          return res
+            .status(200)
+            .json({ games: videoGamesDbs, limit: videoGamesDB.length });
         }
-        if (videoGamesDbs.length > 0 && page === 7)
-          return res.status(200).json(videoGamesDbs.slice(0, 10));
-        // send video games from the database to the pages
-        return res.status(200).json(videoGamesDbs);
+      // send video games from the database to the pages
+        return res.status(200).json({games:videoGamesDbs,limit:videoGamesDB.length});
       } catch (error) {
         return res.status(500).json({ error: error.message });
       }
     };
 
     // search for video games in the API
-    const videoGamesFromAPI = async () => {
+    const videoGamesFromAPI = async (page) => {
       try {
-        const maxPageSize = 100 - videoGamesDB.length; // sets the maximum page size allowed for the API
+        const maxPageSize = 100 // sets the maximum page size allowed for the API
         const requestedPageSize = 15;
         const pageSize = Math.min(requestedPageSize, maxPageSize); // Choose the smallest page size between the requested and the maximum allowed
 
@@ -115,7 +116,7 @@ export const allVideoGames = async (req, res) => {
             image: background_image,
             released,
             rating,
-            genres: genres.map(({ name }) => name),
+            genres: genres.map(({ id, name }) => ({id, name })),
             platforms: parent_platforms.map(({ platform }) => platform.name),
           })
         );
@@ -126,9 +127,12 @@ export const allVideoGames = async (req, res) => {
     };
 
     // validate if database is empty
-    const videoGamesAPI = await videoGamesFromAPI();
     if (videoGamesDB.length === 0) {
-      return res.status(200).json(videoGamesAPI);
+      if (Number(page) <= 7) {
+        const videoGamesAPI = await videoGamesFromAPI(Number(page));
+        return res.status(200).json({games:videoGamesAPI,limit:100});
+      }
+      return []
     }
     // execute the assigned function to send the video games
     sendVideoGames(Number(page));
